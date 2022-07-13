@@ -1,4 +1,4 @@
-const API = "./stock.json"
+const API = "./data/stock.json"
 
 export const getData = async () => {
     const response = await fetch(API);

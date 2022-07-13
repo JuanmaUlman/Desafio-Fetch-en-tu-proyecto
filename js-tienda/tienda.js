@@ -5,13 +5,18 @@ const contenedorCarrito = document.getElementById('carritoContenedor')
 const contenedorProductos = document.getElementById("contenedorProductos")
 const contadorCarrito = document.getElementById("contadorCarrito");
 const vaciar = document.getElementById("vaciar");
-const total = document.getElementById("total")
+const total = document.getElementById("total");
 
+const deMayor = document.getElementById("deMayor");
 
 
 
 //Usando fecth()
 const productos = await getData() // anteriormente la tenia declarada dentro de la función mostrarProductos, pero al invocarla en la funcion agregar al carrito y usarla con un find(), me aparecia en el console log que no era una funcion, asi que opte por declarla fuera de esta función
+
+
+
+
 
 //CREAR HTML INSERTANDO LOS PRODUCTOS
 const mostrarProductos = async () => {
@@ -38,6 +43,13 @@ const mostrarProductos = async () => {
 
         contenedorProductos.appendChild(div)
        
+
+
+
+
+
+
+
         //BOTON AGREGAR AL CARRITO CON EVENTO CLICK
         const boton = document.getElementById(`agregarCarrito${productos.id}`);
         boton.addEventListener('click', () => {
@@ -55,6 +67,11 @@ const mostrarProductos = async () => {
         }).showToast();
         });
     })
+    // const deMenor = document.getElementById("deMenor");
+    // deMenor.addEventListener('click', () => {
+    // productos.precio.sort((a, b) => b-a)
+
+    // })
 
 }
 
@@ -177,7 +194,7 @@ const actualizarCarrito = () => {
 
 
         //modificamos el total acumulado en relacion a precio, en el carrito
-        total.innerText = carrito.reduce((acc, prod) => acc + prod.precio, 0)
+        total.innerText = carrito.reduce((acc, prod) => acc += prod.precio * prod.cantidad, 0) //prod.precio * prod.cantidad para que al cargar 2 productos iguales tambien sume la cantidad en el total de la funcion agregarAlCarrito()
 
     }
 
@@ -189,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         carrito = JSON.parse(localStorage.getItem('carrito'))
         actualizarCarrito();
     }
+    
 })
 
 
